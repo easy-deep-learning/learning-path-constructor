@@ -1,0 +1,23 @@
+{
+  "name": "learning-path-constructor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node ./src/index.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/easy-deep-learning/learning-path-constructor.git"
+  },
+  "author": "easy.deep.learning@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/easy-deep-learning/learning-path-constructor/issues"
+  },
+  "homepage": "https://github.com/easy-deep-learning/learning-path-constructor#readme",
+  "dependencies": {
+    "@hapi/hapi": "^19.1.1"
+  }
+}
