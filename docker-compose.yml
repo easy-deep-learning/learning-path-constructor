@@ -2,14 +2,21 @@ version: '3'
 
 services:
   database:
-    env_file: development.env
+    env_file:
+      - .env
     image: mongo:4.2.3
     restart: always
     ports:
-      - 27017:27017
+      - ${MONGO_PORT}:27017
     environment:
-      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
+      - APP_MONGO_HOST=${MONGO_HOST}
+      - MONGO_PORT=${MONGO_PORT}
+      - MONGO_ROOT_USER=${MONGO_ROOT_USERNAME}
+      - MONGO_ROOT_PASS=${MONGO_ROOT_PASSWORD}
+      - APP_MONGO_USER=${APP_MONGO_USER}
+      - APP_MONGO_PASS=${APP_MONGO_PASS}
+      - APP_MONGO_DB=${APP_MONGO_DB}
     volumes:
-      - ./init/mongo.js:/docker-entrypoint-initdb.d/init-mongo-js:ro
+      - ./init/mongo/:/docker-entrypoint-initdb.d/:ro

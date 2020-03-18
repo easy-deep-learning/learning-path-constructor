@@ -6,9 +6,11 @@ const makeRouters = require('./routes')
 
 const init = async () => {
   const server = Hapi.server({
-    port: 3000,
-    host: 'localhost',
+    port: process.env.APP_PORT,
+    host: process.env.APP_HOST,
   })
+
+  await require('./models')
 
   makeRouters(server)
 
