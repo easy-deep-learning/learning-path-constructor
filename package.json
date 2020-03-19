@@ -4,7 +4,8 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "env $(cat ./development.env) nodemon ./src/index.js",
+    "migrate-mongo:status": "env $(cat ./.env) migrate-mongo status",
+    "start": "env $(cat ./.env) nodemon ./src/index.js",
     "test": "jest"
   },
   "repository": {
@@ -19,6 +20,7 @@
   "homepage": "https://github.com/easy-deep-learning/learning-path-constructor#readme",
   "dependencies": {
     "@hapi/hapi": "^19.1.1",
+    "migrate-mongo": "^7.1.0",
     "mongoose": "^5.9.3"
   },
   "devDependencies": {

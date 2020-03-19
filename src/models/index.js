@@ -6,12 +6,13 @@ const mongoose = require('mongoose')
 
 // https://mongoosejs.com/docs/connections.html
 module.exports = mongoose.connect(
-    `mongodb://localhost:${process.env.MONGO_PORT}/`,
+    `mongodb://${process.env.APP_MONGO_USER}:${process.env.APP_MONGO_PASS}@localhost:${process.env.MONGO_PORT}/`,
     {
       useNewUrlParser: true,
       user: process.env.APP_MONGO_USER,
       pass: process.env.APP_MONGO_PASS,
       dbName: process.env.APP_MONGO_DB,
+      useUnifiedTopology: true,
     },
 )
 const dbConnection = mongoose.connection
