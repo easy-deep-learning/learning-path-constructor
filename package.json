@@ -5,6 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "migrate-mongo:status": "env $(cat ./.env) migrate-mongo status",
+    "migrate-mongo:up": "env $(cat ./.env) migrate-mongo up",
+    "migrate-mongo:down": "env $(cat ./.env) migrate-mongo down",
     "start": "env $(cat ./.env) nodemon ./src/index.js",
     "test": "jest"
   },
