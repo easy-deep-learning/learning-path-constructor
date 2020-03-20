@@ -8,16 +8,16 @@ module.exports = {
     await db.collection('goals').insert([
       {
         id: 1,
-        name: 'Сделать API для сайта',
+        name: 'Сделать API для сайта'
       },
       {
         id: 2,
-        name: 'Рассказать о себе на английском',
+        name: 'Рассказать о себе на английском'
       },
       {
         id: 3,
-        name: 'Повторить основы react',
-      },
+        name: 'Повторить основы react'
+      }
     ])
   },
 
@@ -26,6 +26,6 @@ module.exports = {
     // Example:
     // await db.collection('albums').updateOne({artist: 'The Beatles'}, {$set: {blacklisted: false}});
 
-    await db.collection('goals').remove();
-  },
+    await db.collection('goals').remove()
+  }
 }

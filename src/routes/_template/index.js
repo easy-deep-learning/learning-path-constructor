@@ -1,7 +1,7 @@
 /*
-* @see https://hapi.dev/api/?v=19.1.1#route-options
-*
-* */
+ * @see https://hapi.dev/api/?v=19.1.1#route-options
+ *
+ * */
 module.exports = server => server.route({
   method: 'GET',
   path: '/_template',

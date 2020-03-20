@@ -1,4 +1,3 @@
-
 const makeRouters = server => {
   /* Root */
   server.route({
