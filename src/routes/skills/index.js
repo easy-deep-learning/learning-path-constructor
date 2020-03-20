@@ -6,18 +6,18 @@ module.exports = server => server.route({
       {
         id: 1,
         skill_id: 1,
-        name: 'Какие бывают node-js фреймворки',
+        name: 'Какие бывают node-js фреймворки'
       },
       {
         id: 2,
         skill_id: 1,
-        name: 'Разбор koajs',
+        name: 'Разбор koajs'
       },
       {
         id: 2,
         skill_id: 1,
-        name: 'Разбор hapyjs',
-      },
+        name: 'Разбор hapyjs'
+      }
     ]
-  },
+  }
 })

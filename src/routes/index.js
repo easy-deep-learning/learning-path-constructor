@@ -6,7 +6,7 @@ const makeRouters = server => {
     path: '/',
     handler: (request, h) => {
       return 'Hello World!'
-    },
+    }
   })
 
   /* Goals */

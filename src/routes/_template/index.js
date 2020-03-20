@@ -13,5 +13,5 @@ module.exports = server => server.route({
     // Go to DB
 
     // Response!
-  },
+  }
 })

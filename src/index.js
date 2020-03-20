@@ -7,7 +7,7 @@ const makeRouters = require('./routes')
 const init = async () => {
   const server = Hapi.server({
     port: process.env.APP_PORT,
-    host: process.env.APP_HOST,
+    host: process.env.APP_HOST
   })
 
   await require('./models')
