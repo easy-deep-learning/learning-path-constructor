@@ -7,15 +7,12 @@ module.exports = {
 
     await db.collection('goals').insert([
       {
-        id: 1,
         name: 'Сделать API для сайта'
       },
       {
-        id: 2,
         name: 'Рассказать о себе на английском'
       },
       {
-        id: 3,
         name: 'Повторить основы react'
       }
     ])

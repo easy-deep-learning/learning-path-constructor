@@ -4,7 +4,6 @@ const internalIp = require('internal-ip')
 /**
  * @see https://mongoosejs.com/docs/index.html
  */
-
 const initMongo = async () => {
   // Mongo in Docker
   const hostIp = await internalIp.v4()
@@ -26,4 +25,6 @@ const initMongo = async () => {
   })
 }
 
-initMongo()
+(async () => {
+  initMongo()
+})()
