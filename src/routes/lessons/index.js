@@ -1,23 +1,14 @@
+const LessonsModel = require('../../models/lessons')
+
 module.exports = server => server.route({
   method: 'GET',
   path: '/lessons',
-  handler: (request, h) => {
-    return [
-      {
-        id: 1,
-        goal_id: 1,
-        name: 'Уметь выбирать node-js фреймворк по критериям'
-      },
-      {
-        id: 2,
-        goal_id: 1,
-        name: 'Уметь выбирать базу данных по критериям'
-      },
-      {
-        id: 2,
-        goal_id: 1,
-        name: 'Уметь настроить окружение разработчика'
-      }
-    ]
+  handler: async (request, h) => {
+    try {
+      const lessonsAll = await LessonsModel.find({}).exec()
+      return h.response(lessonsAll)
+    } catch (error) {
+      return h.response(error).code(500)
+    }
   }
 })
