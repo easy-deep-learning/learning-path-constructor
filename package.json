@@ -8,7 +8,8 @@
     "migrate-mongo:up": "env $(cat ./.env) migrate-mongo up",
     "migrate-mongo:down": "env $(cat ./.env) migrate-mongo down",
     "start": "env $(cat ./.env) nodemon ./src/index.js",
-    "test": "standard"
+    "test": "exit 0",
+    "codestyle": "prettier --write migrations src"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.2",
+    "prettier": "2.0.2",
     "standard": "^14.3.3"
   }
 }

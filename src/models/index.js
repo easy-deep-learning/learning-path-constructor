@@ -10,13 +10,10 @@ const initMongo = async () => {
   const mongoUrl = `mongodb://${process.env.APP_MONGO_USER}:${process.env.APP_MONGO_PASS}@${hostIp}:${process.env.MONGO_PORT}/${process.env.APP_MONGO_DB}`
 
   // https://mongoosejs.com/docs/connections.html
-  module.exports = mongoose.connect(
-    mongoUrl,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    }
-  )
+  module.exports = mongoose.connect(mongoUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   const dbConnection = mongoose.connection
 
   dbConnection.on('error', console.error.bind(console, 'connection error:'))
@@ -25,6 +22,6 @@ const initMongo = async () => {
   })
 }
 
-(async () => {
+;(async () => {
   initMongo()
 })()

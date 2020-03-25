@@ -1,11 +1,11 @@
-const makeRouters = server => {
+const makeRouters = (server) => {
   /* Root */
   server.route({
     method: 'GET',
     path: '/',
     handler: (request, h) => {
       return 'Hello World!'
-    }
+    },
   })
 
   /* Goals */

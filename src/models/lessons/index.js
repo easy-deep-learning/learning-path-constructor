@@ -6,12 +6,12 @@ const Schema = mongoose.Schema
  */
 const LessonsSchema = Schema({
   id: {
-    type: Schema.Types.ObjectId
+    type: Schema.Types.ObjectId,
   },
   name: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 })
 
 /**
