@@ -1,23 +1,14 @@
+const SkillsModel = require('../../models/skills')
+
 module.exports = server => server.route({
   method: 'GET',
   path: '/skills',
-  handler: (request, h) => {
-    return [
-      {
-        id: 1,
-        skill_id: 1,
-        name: 'Какие бывают node-js фреймворки'
-      },
-      {
-        id: 2,
-        skill_id: 1,
-        name: 'Разбор koajs'
-      },
-      {
-        id: 2,
-        skill_id: 1,
-        name: 'Разбор hapyjs'
-      }
-    ]
+  handler: async(request, h) => {
+    try {
+      const skillsAll = await SkillsModel.find({}).exec()
+      return h.response(skillsAll)
+    } catch (error) {
+      return h.response(error).code(500)
+    }
   }
 })
