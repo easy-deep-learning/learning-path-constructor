@@ -2,13 +2,13 @@ module.exports = {
   async up(db, client) {
     await db.collection('skills').insert([
       {
-        name: 'Какие бывают node-js фреймворки'
+        name: 'Уметь выбирать node-js фреймворк по критериям'
       },
       {
-        name: 'Разбор express'
+        name: 'Уметь выбирать базу данных по критериям'
       },
       {
-        name: 'Разбор hapyjs'
+        name: 'Уметь настроить окружение разработчика'
       }
     ])
  },
