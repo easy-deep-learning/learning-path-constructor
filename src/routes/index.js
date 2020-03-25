@@ -3,7 +3,7 @@ const makeRouters = (server) => {
   server.route({
     method: 'GET',
     path: '/',
-    handler: (request, h) => {
+    handler: (/* request, h */) => {
       return 'Hello World!'
     },
   })

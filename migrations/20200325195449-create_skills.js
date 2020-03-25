@@ -1,5 +1,5 @@
 module.exports = {
-  async up(db, client) {
+  async up(db) {
     await db.collection('skills').insert([
       {
         name: 'Уметь выбирать node-js фреймворк по критериям',
@@ -13,7 +13,7 @@ module.exports = {
     ])
   },
 
-  async down(db, client) {
+  async down(db) {
     await db.collection('skills').deleteMany()
   },
 }

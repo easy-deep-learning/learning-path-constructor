@@ -6,7 +6,7 @@ module.exports = (server) =>
   server.route({
     method: 'GET',
     path: '/_template',
-    handler: (request, h) => {
+    handler: (/* request, h */) => {
       // 1 Parse request
       // Auth/ALC
       // Go to DB
