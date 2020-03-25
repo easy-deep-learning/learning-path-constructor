@@ -14,6 +14,9 @@ const GoalsSchema = Schema({
   }
 })
 
+/**
+ * https://mongoosejs.com/docs/models.html
+ */
 const GoalsModel = mongoose.model('goals', GoalsSchema)
 
 module.exports = GoalsModel

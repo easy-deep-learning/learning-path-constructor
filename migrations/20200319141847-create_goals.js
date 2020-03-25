@@ -23,6 +23,6 @@ module.exports = {
     // Example:
     // await db.collection('albums').updateOne({artist: 'The Beatles'}, {$set: {blacklisted: false}});
 
-    await db.collection('goals').remove()
+    await db.collection('goals').deleteMany()
   }
 }
