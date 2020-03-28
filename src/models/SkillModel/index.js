@@ -4,8 +4,8 @@ const Schema = mongoose.Schema
 /**
  * https://mongoosejs.com/docs/schematypes.html#schematypes
  */
-const SkillsSchema = Schema({
-  id: {
+const SkillSchema = Schema({
+  _id: {
     type: Schema.Types.ObjectId,
   },
   name: {
@@ -17,6 +17,6 @@ const SkillsSchema = Schema({
 /**
  * https://mongoosejs.com/docs/models.html
  */
-const SkillsModel = mongoose.model('skills', SkillsSchema)
+const SkillModel = mongoose.model('Skill', SkillSchema)
 
-module.exports = SkillsModel
+module.exports = SkillModel

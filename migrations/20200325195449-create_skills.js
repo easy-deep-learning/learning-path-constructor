@@ -1,6 +1,8 @@
+const SkillModel = require('../src/models/SkillModel')
+
 module.exports = {
-  async up(db) {
-    await db.collection('skills').insert([
+  async up() {
+    await SkillModel.insertMany([
       {
         name: 'Уметь выбирать node-js фреймворк по критериям',
       },
@@ -13,7 +15,7 @@ module.exports = {
     ])
   },
 
-  async down(db) {
-    await db.collection('skills').deleteMany()
+  async down() {
+    await SkillModel.deleteMany()
   },
 }

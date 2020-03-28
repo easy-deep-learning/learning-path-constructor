@@ -1,6 +1,8 @@
+const LessonModel = require('../src/models/LessonModel')
+
 module.exports = {
-  async up(db) {
-    await db.collection('lessons').insert([
+  async up() {
+    await LessonModel.insertMany([
       {
         name: 'Какие бывают node-js фреймворки',
       },
@@ -13,7 +15,7 @@ module.exports = {
     ])
   },
 
-  async down(db) {
-    await db.collection('lessons').deleteMany()
+  async down() {
+    await LessonModel.deleteMany()
   },
 }

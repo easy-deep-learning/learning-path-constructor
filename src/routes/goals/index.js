@@ -1,4 +1,4 @@
-const GoalsModel = require('../../models/goals')
+const GoalModel = require('../../models/GoalModel')
 
 module.exports = (server) =>
   server.route({
@@ -6,7 +6,7 @@ module.exports = (server) =>
     path: '/goals',
     handler: async (request, h) => {
       try {
-        const goalsAll = await GoalsModel.find({}).exec()
+        const goalsAll = await GoalModel.find({}).exec()
         return h.response(goalsAll)
       } catch (error) {
         return h.response(error).code(500)

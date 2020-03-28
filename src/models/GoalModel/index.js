@@ -4,8 +4,8 @@ const Schema = mongoose.Schema
 /**
  * https://mongoosejs.com/docs/schematypes.html#schematypes
  */
-const LessonsSchema = Schema({
-  id: {
+const GoalSchema = Schema({
+  _id: {
     type: Schema.Types.ObjectId,
   },
   name: {
@@ -17,6 +17,6 @@ const LessonsSchema = Schema({
 /**
  * https://mongoosejs.com/docs/models.html
  */
-const LessonsModel = mongoose.model('lessons', LessonsSchema)
+const GoalModel = mongoose.model('Goal', GoalSchema)
 
-module.exports = LessonsModel
+module.exports = GoalModel

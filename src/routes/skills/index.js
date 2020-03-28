@@ -1,4 +1,4 @@
-const SkillsModel = require('../../models/skills')
+const SkillModel = require('../../models/SkillModel')
 
 module.exports = (server) =>
   server.route({
@@ -6,7 +6,7 @@ module.exports = (server) =>
     path: '/skills',
     handler: async (request, h) => {
       try {
-        const skillsAll = await SkillsModel.find({}).exec()
+        const skillsAll = await SkillModel.find({}).exec()
         return h.response(skillsAll)
       } catch (error) {
         return h.response(error).code(500)
