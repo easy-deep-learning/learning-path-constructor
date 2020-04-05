@@ -12,6 +12,12 @@ const GoalSchema = Schema({
     type: String,
     required: true,
   },
+  skills: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Skill',
+    },
+  ],
 })
 
 /**

@@ -12,6 +12,12 @@ const SkillSchema = Schema({
     type: String,
     required: true,
   },
+  lessons: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Lesson',
+    },
+  ],
 })
 
 /**
