@@ -7,6 +7,7 @@ const Schema = mongoose.Schema
 const SkillSchema = Schema({
   _id: {
     type: Schema.Types.ObjectId,
+    auto: true,
   },
   name: {
     type: String,

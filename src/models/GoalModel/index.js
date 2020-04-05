@@ -7,6 +7,7 @@ const Schema = mongoose.Schema
 const GoalSchema = Schema({
   _id: {
     type: Schema.Types.ObjectId,
+    auto: true,
   },
   name: {
     type: String,
