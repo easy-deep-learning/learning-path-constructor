@@ -1,6 +1,6 @@
 const GoalModel = require('../../models/GoalModel')
 
-module.exports = (server) =>
+module.exports = (server) => {
   server.route({
     method: 'POST',
     path: '/goals',
@@ -18,3 +18,4 @@ module.exports = (server) =>
       }
     },
   })
+}
