@@ -1,6 +1,9 @@
 const GoalModel = require('../../models/GoalModel')
 
-module.exports = (server) =>
+module.exports = (server) => {
+  /**
+   * read All
+   */
   server.route({
     method: 'GET',
     path: '/goals',
@@ -22,3 +25,9 @@ module.exports = (server) =>
       }
     },
   })
+
+  /**
+   * create One
+   */
+  require('./create')(server)
+}
