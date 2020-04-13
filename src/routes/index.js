@@ -8,6 +8,9 @@ const makeRouters = (server) => {
     },
   })
 
+  /* Login */
+  require('./login')(server)
+
   /* Goals */
   require('./goals')(server)
 
