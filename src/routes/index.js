@@ -1,4 +1,4 @@
-const makeRouters = (server) => {
+const makeRouters = async (server) => {
   /* Root */
   server.route({
     method: 'GET',
@@ -9,7 +9,7 @@ const makeRouters = (server) => {
   })
 
   /* Login */
-  require('./login')(server)
+  await require('./login')(server)
 
   /* Goals */
   require('./goals')(server)

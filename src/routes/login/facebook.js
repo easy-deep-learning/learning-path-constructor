@@ -1,10 +1,10 @@
 const addStrategyFacebook = (server) => {
   server.auth.strategy('facebook', 'bell', {
     provider: 'facebook',
-    password: 'cookie_encryption_password_secure',
+    password: process.env.COOKIE_ENCRYPTION_PASSWORD_SECURE,
     isSecure: false,
-    clientId: '',
-    clientSecret: '',
+    clientId: process.env.AUTH_STRATEGY_FACEBOOK_CLIENT_ID,
+    clientSecret: process.env.AUTH_STRATEGY_FACEBOOK_CLIENT_SECRET,
     location: server.info.uri,
   })
 }

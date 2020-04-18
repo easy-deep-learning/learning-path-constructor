@@ -12,7 +12,7 @@ const init = async () => {
 
   await require('./models')
 
-  makeRouters(server)
+  await makeRouters(server)
 
   await server.start()
   console.log('Server running on %s', server.info.uri)

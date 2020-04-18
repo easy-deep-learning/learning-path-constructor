@@ -6,7 +6,7 @@ const registerBell = async (server) => {
   await server.register(Bell)
 }
 
-module.exports = (server) => {
-  registerBell(server)
+module.exports = async (server) => {
+  await registerBell(server)
   addLoginFacebook(server)
 }
