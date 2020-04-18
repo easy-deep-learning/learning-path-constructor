@@ -15,19 +15,23 @@ module.exports = (server) => {
   server.route({
     method: '*',
     path: '/login/facebook',
-    options: {
+    config: {
       auth: {
         strategy: 'facebook',
         mode: 'try',
       },
-      handler: function (request) {
+      handler: function (request, h) {
         if (!request.auth.isAuthenticated) {
-          return 'Authentication failed due to: ' + request.auth.error.message
+          return h.redirect('/login/facebook')
         }
 
         return (
           '<pre>' + JSON.stringify(request.auth.credentials, null, 4) + '</pre>'
         )
+
+        // Set the `sessionId` cookie
+        // Save `sessionId` to DB
+        // Bind User with sessionId
       },
     },
   })
