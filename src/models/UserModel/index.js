@@ -18,11 +18,8 @@ const UserSchema = Schema({
   picture: {
     type: String,
   },
-  profile: {
-    type: String,
-  },
-  oauthIds: {
-    facebook: String,
+  oauth: {
+    facebookId: String,
   },
   sessions: [
     {

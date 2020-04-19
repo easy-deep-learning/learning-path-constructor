@@ -13,8 +13,8 @@ const SessionSchema = Schema({
 
   isActive: Boolean,
   userId: Schema.Types.ObjectId,
-  device: String,
-  ip: String,
+  userAgent: String,
+  host: String,
 
   createdAt: Date,
   updatedAt: Date,
