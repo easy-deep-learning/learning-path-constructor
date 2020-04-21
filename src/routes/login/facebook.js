@@ -31,7 +31,6 @@ module.exports = (server) => {
 
         // Create session
         const sessionId = nanoid()
-        h.state('sessionId', sessionId)
         const sessionDocument = new SessionModel({
           sessionCookieId: sessionId,
           isActive: true,
@@ -66,6 +65,7 @@ module.exports = (server) => {
             return Promise.all([sessionDocument.save(), userDocument.save()])
           })
           .then(([, user]) => {
+            h.state('sessionId', sessionId)
             return h.redirect(`/profile/${user._id}`)
           })
           .catch((error) => {
