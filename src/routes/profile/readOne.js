@@ -8,7 +8,14 @@ module.exports = (server) => {
     handler: async (request, h) => {
       const params = request.params
 
-      return h.response(`profile ${params.id}`)
+      const credentials = await request.server.auth.verify(request)
+      console.log('credentials: ', credentials) // eslint-disable-line
+
+      if (request.auth.isAuthenticated) {
+        return h.response(`profile ${params.id}`)
+      } else {
+        return h.status(403)
+      }
     },
   })
 }

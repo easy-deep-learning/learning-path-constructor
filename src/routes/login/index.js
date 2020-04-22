@@ -18,22 +18,29 @@ const authSessionMongoScheme = (/*server, options*/) => ({
   authenticate: async (request, h) => {
     const sessionCookieId = request.state.sessionId
 
-/*    if (!sessionCookieId) {
+    if (!sessionCookieId) {
       return h.redirect('/login/facebook')
-    }*/
+    }
 
     const session = await SessionModel.findOne({ sessionCookieId }).exec()
-    
-    console.log('session: ', session); // eslint-disable-line
 
     if (session) {
-      return h.authenticated(session)
+      const { _id, userId, isActive } = session
+
+      return h.authenticated({
+        credentials: {
+          _id,
+          userId,
+          isActive,
+        },
+      })
     } else {
       return h.unauthenticated(new Error('TODO: Boom the error'))
     }
   },
-  verify: async (auth) => {
-    console.log('auth: ', auth); // eslint-disable-line
+
+  verify: async (credentials) => {
+    console.log('credentials: ', credentials) // eslint-disable-line
   },
 })
 
