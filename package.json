@@ -10,7 +10,9 @@
     "start": "env $(cat ./.env) nodemon ./src/index.js",
     "test": "exit 0",
     "codestyle": "prettier --write migrations src",
-    "lint": "eslint migrations src"
+    "lint": "eslint migrations src",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -26,7 +28,8 @@
     "@hapi/hapi": "^19.1.1",
     "internal-ip": "^6.0.0",
     "migrate-mongo": "^7.1.0",
-    "mongoose": "^5.9.3"
+    "mongoose": "^5.9.3",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
@@ -45,5 +48,6 @@
   },
   "lint-staged": {
     "*.{js,css,md}": "prettier --write"
-  }
+  },
+  "snyk": true
 }
