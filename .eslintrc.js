@@ -13,6 +13,8 @@ module.exports = {
     ecmaVersion: 2018,
   },
   rules: {
-    'prettier/prettier': 'error',
+    'prettier/prettier': 'warn',
+    'no-unused-vars': 'warn',
+    'no-empty': 'warn',
   },
 }
