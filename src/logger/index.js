@@ -6,7 +6,7 @@ const createLogger = require('pino')
  * levels: 'fatal', 'error', 'warn', 'info', 'debug', 'trace' or 'silent'
  */
 let options = {
-  nestedKey: 'message',
+  nestedKey: 'msg',
 }
 
 if (process.env.NODE_ENV === 'development') {
