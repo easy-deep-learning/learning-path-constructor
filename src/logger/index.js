@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === 'development') {
   options.level = 'trace'
 }
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'production') {
   options.level = 'info'
 }
 
