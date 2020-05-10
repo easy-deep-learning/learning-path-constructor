@@ -5,6 +5,9 @@ module.exports = (server) => {
     method: 'GET',
     path: '/goals',
     handler: async (request, h) => {
+      const value = request.state.sessionId
+      console.log('value: ', value) // eslint-disable-line
+
       try {
         const goalsAll = await GoalModel.find({})
           .populate({

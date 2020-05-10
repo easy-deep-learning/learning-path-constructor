@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const composeMongoUrl = require('../utils/composeMongoUrl')
+const { logger } = require('../logger')
 
 /**
  * @see https://mongoosejs.com/docs/index.html
@@ -14,9 +15,16 @@ const initMongo = async () => {
   })
   const dbConnection = mongoose.connection
 
-  dbConnection.on('error', console.error.bind(console, 'connection error:'))
-  dbConnection.once('open', function () {
-    console.log('mongodb connected') // eslint-disable-line
+  dbConnection.on('error', (error) => {
+    logger.error({
+      eventName: 'mongodb connection error',
+      error,
+    })
+  })
+  dbConnection.once('open', () => {
+    logger.info({
+      eventName: 'mongodb connected',
+    })
   })
 }
 

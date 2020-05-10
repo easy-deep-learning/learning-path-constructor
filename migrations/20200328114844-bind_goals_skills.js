@@ -1,4 +1,3 @@
-const mongoose = require('mongoose')
 const GoalModel = require('../src/models/GoalModel')
 const SkillModel = require('../src/models/SkillModel')
 const LessonModel = require('../src/models/LessonModel')
