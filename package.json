@@ -11,7 +11,9 @@
     "start:prod": "node ./src/index.js | pino-gelf log -h localhost -p 12201",
     "test": "exit 0",
     "codestyle": "prettier --write migrations src",
-    "lint": "eslint migrations src"
+    "lint": "eslint migrations src",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -36,7 +38,8 @@
     "nanoid": "^3.1.6",
     "pino": "^6.2.1",
     "pino-gelf": "^2.0.0",
-    "pino-pretty": "^4.0.0"
+    "pino-pretty": "^4.0.0",
+    "snyk": "^1.319.2"
   },
   "devDependencies": {
     "eslint": "^7.0.0",
@@ -55,5 +58,6 @@
   },
   "lint-staged": {
     "*.{js,css,md}": "prettier --write"
-  }
+  },
+  "snyk": true
 }
