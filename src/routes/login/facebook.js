@@ -1,6 +1,7 @@
 const { nanoid } = require('nanoid')
 const SessionModel = require('../../models/SessionModel')
 const UserModel = require('../../models/UserModel')
+const { logger } = require('../../logger')
 
 const addStrategyFacebook = (server) => {
   server.auth.strategy('facebook', 'bell', {
@@ -24,11 +25,7 @@ module.exports = (server) => {
         strategy: 'facebook',
         mode: 'try',
       },
-      handler: function (request, h) {
-        if (!request.auth.isAuthenticated) {
-          return h.redirect('/login/facebook')
-        }
-
+      handler: async (request, h) => {
         // Create session
         const sessionId = nanoid()
         const sessionDocument = new SessionModel({
@@ -40,39 +37,39 @@ module.exports = (server) => {
           host: request.headers.host,
         })
         const profile = request.auth.credentials.profile
-        let userDocument
 
-        return UserModel.findOne({ email: profile.email })
-          .exec()
-          .then((user) => {
-            if (user) {
-              userDocument = user
-              sessionDocument.userId = userDocument._id
-              userDocument.sessions.push(sessionDocument._id)
-            } else {
-              userDocument = new UserModel({
-                displayName: profile.displayName,
-                email: profile.email,
-                picture: profile.picture.data.url,
-                oauth: {
-                  facebookId: profile.id,
-                },
-                sessions: [sessionDocument._id],
-              })
+        try {
+          let userDocument = await UserModel.findOne({
+            email: profile.email,
+          }).exec()
 
-              sessionDocument.userId = userDocument._id
-            }
-            return Promise.all([sessionDocument.save(), userDocument.save()])
-          })
-          .then(([, user]) => {
-            h.state('sessionId', sessionId)
-            return h.redirect(`/profile/${user._id}`)
-          })
-          .catch((error) => {
-            console.log('error: ', error) // eslint-disable-line
-            // TODO: Add logger
-            return h.redirect('/')
-          })
+          if (!userDocument.isNew) {
+            userDocument.sessions.push(sessionDocument._id)
+          } else {
+            userDocument = new UserModel({
+              displayName: profile.displayName,
+              email: profile.email,
+              picture: profile.picture.data.url,
+              oauth: {
+                facebookId: profile.id,
+              },
+              sessions: [sessionDocument._id],
+            })
+          }
+
+          sessionDocument.userId = userDocument._id
+
+          const [, sessionUser] = await Promise.all([
+            sessionDocument.save(),
+            userDocument.save(),
+          ])
+
+          h.state('sessionId', sessionId)
+          return h.redirect(`/profile/${sessionUser._id}`)
+        } catch (error) {
+          logger.error(error)
+          return h.redirect('/login/facebook')
+        }
       },
     },
   })

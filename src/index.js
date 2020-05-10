@@ -11,6 +11,7 @@ const init = async () => {
     host: process.env.APP_HOST,
   })
 
+  // Add logger
   await server.register({
     plugin: require('hapi-pino'),
     options: {
