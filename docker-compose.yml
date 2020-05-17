@@ -3,7 +3,7 @@ version: '3'
 services:
   database:
     env_file:
-      - .env
+      - backend/.env
     image: mongo:4.2.3
     restart: always
     ports:
@@ -19,4 +19,4 @@ services:
       - APP_MONGO_PASS=${APP_MONGO_PASS}
       - APP_MONGO_DB=${APP_MONGO_DB}
     volumes:
-      - ./init/mongo/:/docker-entrypoint-initdb.d/:ro
+      - ./backend/init/mongo/:/docker-entrypoint-initdb.d/:ro
