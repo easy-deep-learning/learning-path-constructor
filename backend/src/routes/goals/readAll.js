@@ -3,7 +3,7 @@ const GoalModel = require('../../models/GoalModel')
 module.exports = (server) => {
   server.route({
     method: 'GET',
-    path: '/goals',
+    path: '/api/goals',
     handler: async (request, h) => {
       const value = request.state.sessionId
       console.log('value: ', value) // eslint-disable-line

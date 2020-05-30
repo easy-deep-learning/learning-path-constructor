@@ -9,6 +9,7 @@ import { Menu } from 'semantic-ui-react'
 import {
   ProfileRoute,
   MainRoute,
+  GoalsRoute,
 } from './Routes'
 
 import block from './classname'
@@ -24,11 +25,13 @@ function App () {
           <Menu className={b('menu')}>
             <Menu.Item><Link to="/">Main</Link></Menu.Item>
             <Menu.Item><Link to="/profile">Profile</Link></Menu.Item>
+            <Menu.Item><Link to="/goals">Goals</Link></Menu.Item>
           </Menu>
         </header>
         <main className={b('main')}>
           <Route exact path="/" component={MainRoute} />
           <Route path="/profile" component={ProfileRoute} />
+          <Route path="/goals" component={GoalsRoute} />
         </main>
       </div>
     </Router>
