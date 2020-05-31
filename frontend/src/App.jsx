@@ -13,7 +13,7 @@ import {
 } from './Routes'
 
 import block from './classname'
-import './App.module.css'
+import './App.css'
 
 const b = block('app')
 

@@ -1,23 +1,25 @@
 import React, { Component } from 'react'
 
+import { GoalsListComponent } from '../../Components'
+
 class GoalsContainer extends Component {
   state = {
-    goals: []
+    goals: [],
   }
 
   componentDidMount () {
     fetch('/api/goals')
       .then((response) => {
           if (response.status !== 200) {
-            console.log('Looks like there was a problem. Status Code: ' +  response.status)
+            console.log('Looks like there was a problem. Status Code: ' + response.status)
             return
           }
 
           // Examine the text in the response
-          response.json().then((data) => {
-            console.log(data)
-            this.setState({ goals: data })
-          })
+          response.json()
+            .then((data) => {
+              this.setState({ goals: data })
+            })
         },
       )
       .catch((err) => {
@@ -28,7 +30,7 @@ class GoalsContainer extends Component {
   render () {
     return (
       <div className="goals-container">
-        {JSON.stringify(this.state.goals)}
+        <GoalsListComponent goals={this.state.goals} />
       </div>
     )
   }
