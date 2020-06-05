@@ -10,6 +10,7 @@ import {
   ProfileRoute,
   MainRoute,
   GoalsRoute,
+  GoalItemRoute,
 } from './Routes'
 
 import block from './classname'
@@ -31,7 +32,8 @@ function App () {
         <main className={b('main')}>
           <Route exact path="/" component={MainRoute} />
           <Route path="/profile" component={ProfileRoute} />
-          <Route path="/goals" component={GoalsRoute} />
+          <Route exact path="/goals" component={GoalsRoute} />
+          <Route exact path="/goals/:id" component={GoalItemRoute} />
         </main>
       </div>
     </Router>

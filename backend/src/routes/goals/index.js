@@ -10,8 +10,9 @@ module.exports = (server) => {
   require('./readAll')(server)
 
   /**
-   * TODO: read One
+   * read One
    */
+  require('./readOne')(server)
 
   /**
    * update One
