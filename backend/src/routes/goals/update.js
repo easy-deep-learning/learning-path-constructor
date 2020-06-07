@@ -3,7 +3,7 @@ const GoalModel = require('../../models/GoalModel')
 module.exports = (server) => {
   server.route({
     method: 'PATCH',
-    path: '/goals/{id}',
+    path: '/api/goals/{id}',
     handler: async (request, h) => {
       const params = request.params
       const payload = request.payload

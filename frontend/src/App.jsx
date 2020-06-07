@@ -11,6 +11,7 @@ import {
   MainRoute,
   GoalsRoute,
   GoalItemRoute,
+  GoalItemEditRoute,
 } from './Routes'
 
 import block from './classname'
@@ -34,6 +35,7 @@ function App () {
           <Route path="/profile" component={ProfileRoute} />
           <Route exact path="/goals" component={GoalsRoute} />
           <Route exact path="/goals/:id" component={GoalItemRoute} />
+          <Route exact path="/goals/:id/edit" component={GoalItemEditRoute} />
         </main>
       </div>
     </Router>
