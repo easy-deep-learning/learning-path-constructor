@@ -21,7 +21,12 @@ module.exports = (server) => {
       try {
         const result = await GoalModel.findByIdAndUpdate(
           { _id: params.id },
-          { $set: { name: payload.name } }
+          {
+            $set: {
+              name: payload.name,
+              description: payload.description,
+            },
+          }
         )
         return h.response(result)
       } catch (error) {

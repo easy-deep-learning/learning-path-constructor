@@ -6,6 +6,7 @@ import {
 import {
   Button,
   Form,
+  TextArea,
 } from 'semantic-ui-react'
 
 import block from '../../classname'
@@ -31,6 +32,7 @@ class GoalsItemEditComponent extends Component {
 
     this.setState({
       goal: {
+        ...this.state.goal,
         [event.currentTarget.name]: event.currentTarget.value,
       },
     })
@@ -39,6 +41,7 @@ class GoalsItemEditComponent extends Component {
   render () {
     const {
       name,
+      description,
     } = this.state.goal
 
     return (
@@ -50,6 +53,14 @@ class GoalsItemEditComponent extends Component {
             <Form.Field>
               <label>Название</label>
               <input placeholder="Название" name="name" value={name} onChange={this.onChange} />
+            </Form.Field>
+
+            <Form.Field>
+              <label>Описание</label>
+              <TextArea name="description" onChange={this.onChange}>
+                {description}
+              </TextArea>
+
             </Form.Field>
 
             <div className={b('controls')}>
@@ -69,6 +80,7 @@ GoalsItemEditComponent.propTypes = {
     _id: PropTypes.string,
     __v: PropTypes.number,
     name: PropTypes.string,
+    description: PropTypes.string,
     skills: PropTypes.array,
   }),
   onSave: PropTypes.func,

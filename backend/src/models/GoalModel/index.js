@@ -13,6 +13,9 @@ const GoalSchema = Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+  },
   skills: [
     {
       type: Schema.Types.ObjectId,
