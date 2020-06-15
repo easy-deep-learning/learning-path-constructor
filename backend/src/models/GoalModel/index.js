@@ -14,7 +14,7 @@ const GoalSchema = Schema({
     required: true,
   },
   description: {
-    type: String,
+    type: Schema.Types.Mixed,
   },
   skills: [
     {
