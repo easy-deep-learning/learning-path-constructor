@@ -1,36 +1,42 @@
 'use strict'
 
-const Hapi = require('@hapi/hapi')
-const { logger } = require('./logger')
+// Require the framework and instantiate it
+const fastify = require('fastify')({ logger: true })
 
-const makeRouters = require('./routes')
-
-const init = async () => {
-  const server = Hapi.server({
-    port: process.env.APP_PORT,
-    host: process.env.APP_HOST,
-  })
-
-  // Add logger
-  await server.register({
-    plugin: require('hapi-pino'),
-    options: {
-      prettyPrint: process.env.NODE_ENV !== 'production',
-      // Redact Authorization headers, see https://getpino.io/#/docs/redaction
-      redact: ['req.headers.authorization'],
+fastify.route({
+  method: 'GET',
+  url: '/',
+  schema: {
+    // request needs to have a querystring with a `name` parameter
+    querystring: {
+      name: { type: 'string' },
     },
-  })
-
-  await require('./models')
-
-  await makeRouters(server)
-
-  await server.start()
-}
-
-process.on('unhandledRejection', (error) => {
-  logger.error(error)
-  process.exit(1)
+    // the response needs to be an object with an `hello` property of type 'string'
+    response: {
+      200: {
+        type: 'object',
+        properties: {
+          hello: { type: 'string' },
+        },
+      },
+    },
+  },
+  // this function is executed for every request before the handler is executed
+  preHandler: async (request, reply) => {
+    // E.g. check authentication
+  },
+  handler: async (request, reply) => {
+    return { hello: 'world' }
+  },
 })
 
-init()
+const start = async () => {
+  try {
+    await fastify.listen(process.env.APP_PORT)
+    fastify.log.info(`server listening on ${fastify.server.address().port}`)
+  } catch (err) {
+    fastify.log.error(err)
+    process.exit(1)
+  }
+}
+start()
