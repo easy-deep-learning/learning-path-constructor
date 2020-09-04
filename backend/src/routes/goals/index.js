@@ -1,23 +1,23 @@
-module.exports = (server) => {
+module.exports = (fastify) => {
   /**
    * create One
    */
-  require('./create')(server)
+  //require('./create')(fastify)
 
   /**
    * read All
    */
-  require('./readAll')(server)
+  require('./readAll')(fastify)
 
   /**
    * read One
    */
-  require('./readOne')(server)
+  //require('./readOne')(fastify)
 
   /**
    * update One
    */
-  require('./update')(server)
+  //require('./update')(fastify)
 
   /**
    * TODO: delete One (or 'Archive')

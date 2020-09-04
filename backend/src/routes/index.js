@@ -23,10 +23,12 @@ async function routes(fastify, options) {
     preHandler: async (request, reply) => {
       // E.g. check authentication
     },
-    handler: async (request, reply) => {
+    handler: async function handler(request, reply) {
       return { hello: 'world 1' }
     },
   })
+
+  require('./goals')(fastify)
 }
 
 module.exports = routes
