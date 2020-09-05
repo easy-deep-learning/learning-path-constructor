@@ -26,13 +26,7 @@
   },
   "homepage": "https://github.com/easy-deep-learning/learning-path-constructor#readme",
   "dependencies": {
-    "@hapi/bell": "^12.0.1",
-    "@hapi/boom": "^9.1.0",
-    "@hapi/cookie": "^11.0.1",
-    "@hapi/hapi": "^19.1.1",
-    "@hapi/joi": "^17.1.1",
     "fastify": "^3.0.1",
-    "hapi-pino": "^8.0.1",
     "internal-ip": "^6.0.0",
     "migrate-mongo": "^7.2.1",
     "mongoose": "^5.9.16",
