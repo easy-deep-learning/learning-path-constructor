@@ -1,12 +1,12 @@
 /*
- * @see https://hapi.dev/api/?v=19.1.1#route-options
+ * @see https://www.fastify.io/docs/latest/Routes/
  *
  * */
-module.exports = (server) =>
-  server.route({
+module.exports = (fastify) =>
+  fastify.route({
     method: 'GET',
     path: '/_template',
-    handler: (/* request, h */) => {
+    handler: (/* request, reply */) => {
       // 1 Parse request
       // Auth/ALC
       // Go to DB

@@ -1,3 +1,3 @@
-module.exports = (server) => {
-  require('./readOne')(server)
+module.exports = (fastify) => {
+  require('./readOne')(fastify)
 }

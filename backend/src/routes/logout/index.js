@@ -1,12 +1,12 @@
-module.exports = (server) =>
-  server.route({
+module.exports = (fastify) =>
+  fastify.route({
     method: 'GET',
     path: '/logout',
     config: {
       auth: false,
     },
-    handler: async (request, h) => {
-      request.auth.session.clear()
-      h.redirect('/')
+    handler: async () => {
+      // TODO
+      return { dev: 'todo' }
     },
   })
