@@ -31,6 +31,7 @@ async function routes(fastify, options) {
   require('./goals')(fastify)
   require('./lessons')(fastify)
   require('./skills')(fastify)
+  require('./login')(fastify)
 }
 
 module.exports = routes

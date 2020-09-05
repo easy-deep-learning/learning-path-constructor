@@ -28,6 +28,7 @@
   "dependencies": {
     "fastify": "^3.3.0",
     "fastify-cookie": "^4.0.2",
+    "fastify-oauth2": "^4.2.0",
     "fastify-plugin": "^2.3.3",
     "fastify-session": "^5.0.0",
     "internal-ip": "^6.1.0",

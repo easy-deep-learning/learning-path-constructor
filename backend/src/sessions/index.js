@@ -24,6 +24,8 @@ const SessionStore = {
       .catch()
   },
   get: (sessionId, callback) => {
+    console.log('get') // eslint-disable-line
+    console.log('sessionId: ', sessionId) // eslint-disable-line
     SessionModel.findOne({
       sessionCookieId: sessionId,
     })
