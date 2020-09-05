@@ -1,13 +1,13 @@
 const GoalModel = require('../../models/GoalModel')
 
-module.exports = (server) => {
-  server.route({
+module.exports = (fastify) => {
+  fastify.route({
     method: 'GET',
-    path: '/api/goals/{id}',
-    handler: async (request, h) => {
+    path: '/api/goals/:id',
+    handler: async (request) => {
       const params = request.params
       try {
-        const goalOne = await GoalModel.findOne({ _id: params.id })
+        return await GoalModel.findOne({ _id: params.id })
           .populate({
             path: 'skills',
             limit: 5,
@@ -17,9 +17,11 @@ module.exports = (server) => {
             },
           })
           .exec()
-        return h.response(goalOne)
       } catch (error) {
-        return h.response(error).code(500)
+        const err = new Error()
+        err.statusCode = 500
+
+        throw err
       }
     },
   })

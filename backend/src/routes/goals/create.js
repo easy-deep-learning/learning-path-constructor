@@ -1,20 +1,23 @@
 const GoalModel = require('../../models/GoalModel')
 
-module.exports = (server) => {
-  server.route({
+module.exports = (fastify) => {
+  fastify.route({
     method: 'POST',
-    path: '/goals',
-    handler: async (request, h) => {
-      const payload = request.payload
+    path: '/api/goals',
+    handler: async (request) => {
+      const payload = request.body
       const newGoal = new GoalModel({
         name: payload.name,
       })
 
       try {
         await newGoal.save()
-        return h.response(newGoal)
+        return await newGoal.save()
       } catch (error) {
-        return h.response(error).code(500)
+        const err = new Error()
+        err.statusCode = 500
+
+        throw err
       }
     },
   })

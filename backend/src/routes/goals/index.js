@@ -2,7 +2,7 @@ module.exports = (fastify) => {
   /**
    * create One
    */
-  //require('./create')(fastify)
+  require('./create')(fastify)
 
   /**
    * read All
@@ -12,12 +12,12 @@ module.exports = (fastify) => {
   /**
    * read One
    */
-  //require('./readOne')(fastify)
+  require('./readOne')(fastify)
 
   /**
    * update One
    */
-  //require('./update')(fastify)
+  require('./update')(fastify)
 
   /**
    * TODO: delete One (or 'Archive')
