@@ -7,7 +7,7 @@ const start = async () => {
     fastify.register(require('./sessions'))
 
     fastify.addHook('preHandler', function (request, reply, next) {
-      console.log('request.session.userId: ', request.session.userId) // eslint-disable-line
+      request.session.user = { name: 'Alex' }
       next()
     })
 
