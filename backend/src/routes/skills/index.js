@@ -1,15 +1,17 @@
 const SkillModel = require('../../models/SkillModel')
 
-module.exports = (server) =>
-  server.route({
+module.exports = (fastify) =>
+  fastify.route({
     method: 'GET',
-    path: '/skills',
-    handler: async (request, h) => {
+    path: '/api/skills',
+    handler: async () => {
       try {
-        const skillsAll = await SkillModel.find({}).exec()
-        return h.response(skillsAll)
+        return await SkillModel.find({}).exec()
       } catch (error) {
-        return h.response(error).code(500)
+        const err = new Error()
+        err.statusCode = 500
+
+        throw err
       }
     },
   })

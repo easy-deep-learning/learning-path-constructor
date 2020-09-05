@@ -1,15 +1,17 @@
 const LessonModel = require('../../models/LessonModel')
 
-module.exports = (server) =>
-  server.route({
+module.exports = (fastify) =>
+  fastify.route({
     method: 'GET',
-    path: '/lessons',
-    handler: async (request, h) => {
+    path: '/api/lessons',
+    handler: async () => {
       try {
-        const lessonsAll = await LessonModel.find({}).exec()
-        return h.response(lessonsAll)
+        return await LessonModel.find({}).exec()
       } catch (error) {
-        return h.response(error).code(500)
+        const err = new Error()
+        err.statusCode = 500
+
+        throw err
       }
     },
   })
