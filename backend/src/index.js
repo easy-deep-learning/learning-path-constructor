@@ -1,11 +1,15 @@
-'use strict'
-
-// Require the framework and instantiate it
 const fastify = require('fastify')({ logger: true })
 
 const start = async () => {
   try {
     await require('./models')
+
+    fastify.register(require('./sessions'))
+
+    fastify.addHook('preHandler', function (request, reply, next) {
+      console.log('request.session.userId: ', request.session.userId) // eslint-disable-line
+      next()
+    })
 
     fastify.register(require('./routes'))
 
@@ -16,4 +20,5 @@ const start = async () => {
     process.exit(1)
   }
 }
+
 start()
