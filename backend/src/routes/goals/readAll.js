@@ -4,6 +4,7 @@ module.exports = (fastify) => {
   fastify.route({
     method: 'GET',
     url: '/api/goals',
+
     handler: async function handler() {
       try {
         return await GoalModel.find({})
