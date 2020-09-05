@@ -1,6 +1,9 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
+// Need for ref: 'Lesson',
+require('../LessonModel')
+
 /**
  * https://mongoosejs.com/docs/schematypes.html#schematypes
  */

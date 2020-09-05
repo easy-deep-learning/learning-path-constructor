@@ -1,6 +1,9 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
+// Need for ref: 'Skill'
+require('../SkillModel')
+
 /**
  * https://mongoosejs.com/docs/schematypes.html#schematypes
  */

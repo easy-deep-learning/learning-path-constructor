@@ -1,36 +1,39 @@
 const GoalModel = require('../../models/GoalModel')
 
-module.exports = (server) => {
-  server.route({
+module.exports = (fastify) => {
+  fastify.route({
     method: 'PATCH',
-    path: '/api/goals/{id}',
-    handler: async (request, h) => {
+    path: '/api/goals/:id',
+    handler: async (request) => {
       const params = request.params
-      const payload = request.payload
-
-      if (!params.id) {
-        return h.response('Id is required').code(500)
-      }
-
-      if (!payload.name) {
-        return h
-          .response(`Name is required string, but got ${typeof name}`)
-          .code(500)
-      }
+      const payload = request.body
 
       try {
-        const result = await GoalModel.findByIdAndUpdate(
+        if (!params.id) {
+          throw new Error()
+        }
+
+        if (!payload.name) {
+          throw new Error()
+        }
+
+        return await GoalModel.findOneAndUpdate(
           { _id: params.id },
           {
             $set: {
               name: payload.name,
               description: payload.description,
             },
+          },
+          {
+            new: true,
           }
         )
-        return h.response(result)
       } catch (error) {
-        return h.response(error).code(500)
+        const err = new Error()
+        err.statusCode = 500
+
+        throw err
       }
     },
   })
