@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 /**
  * https://mongoosejs.com/docs/schematypes.html#schematypes
  */
-const SkillSchema = Schema({
+const SkillSchema = new Schema({
   _id: {
     type: Schema.Types.ObjectId,
     auto: true,
