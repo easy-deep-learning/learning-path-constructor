@@ -1,4 +1,7 @@
+const axios = require('axios').default
 const oauthPlugin = require('fastify-oauth2')
+
+const UserModel = require('../../models/UserModel')
 
 module.exports = (fastify) => {
   console.log('facebookOAuth2') // eslint-disable-line
@@ -27,12 +30,20 @@ module.exports = (fastify) => {
         request
       )
 
-      console.log(token.access_token)
-
-      // if later you need to refresh the token you can use
-      // const newToken = await this.getNewAccessTokenUsingRefreshToken(token.refresh_token)
-
-      reply.send({ access_token: token.access_token })
+      // TODO: save user ID and email to session
+      axios({
+        method: 'get',
+        url: 'https://graph.facebook.com/v6.0/me',
+        headers: {
+          Authorization: 'Bearer ' + token.access_token,
+        },
+      })
+        .then((response) => {
+          reply.send({ token, me: response.data })
+        })
+        .catch((error) => {
+          reply.send({ token, error })
+        })
     },
   })
 }
