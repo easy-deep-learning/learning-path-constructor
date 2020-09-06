@@ -1,16 +1,17 @@
-const fastify = require('fastify')({ logger: true })
+const fastify = require('fastify')({
+  /**
+   * @see https://www.fastify.io/docs/latest/Logging/
+   */
+  logger: {
+    level: 'debug',
+  },
+})
 
 const start = async () => {
   try {
     await require('./models')
 
     fastify.register(require('./sessions'))
-
-    fastify.addHook('preHandler', function (request, reply, next) {
-      request.session.user = { name: 'Alex' }
-      next()
-    })
-
     fastify.register(require('./routes'))
 
     await fastify.listen(process.env.APP_PORT)

@@ -1,6 +1,74 @@
+const { nanoid } = require('nanoid')
 const fp = require('fastify-plugin')
-
 const SessionModel = require('../models/SessionModel')
+
+const cookieName = process.env.COOKIE_SESSION_NAME
+const cookieMaxAge = 7 * 24 * 60 * 60 * 1000 // one week
+
+module.exports = fp(
+  function (fastify, opts, done) {
+    fastify.register(require('fastify-cookie'))
+
+    fastify.addHook('onRequest', function decodeSession(request, reply, next) {
+      const cookie = request.cookies[cookieName]
+
+      if (!cookie) {
+        const sessionId = createNewSession({
+          host: request.ip,
+          userAgent: request.headers['user-agent'],
+        })
+        request.session = {
+          sessionId,
+          changed: true,
+        }
+        next()
+        return
+      }
+
+      if (cookie) {
+        SessionModel.findOne({
+          sessionCookieId: cookie,
+        }).then((session) => {
+          if (session && session.isActive) {
+            request.session = session
+            next()
+          } else {
+            const sessionId = createNewSession({
+              host: request.ip,
+              userAgent: request.headers['user-agent'],
+            })
+            request.session = {
+              sessionId,
+              changed: true,
+            }
+            next()
+          }
+        })
+      }
+    })
+
+    fastify.addHook('onSend', (request, reply, payload, next) => {
+      const session = request.session
+
+      if (session && session.changed) {
+        reply.setCookie(cookieName, session.sessionId, {
+          maxAge: cookieMaxAge,
+        })
+        next()
+        return
+      }
+
+      next()
+    })
+
+    // end plugin
+    done()
+  },
+  {
+    fastify: '3.x',
+    name: 'mongodb-sessions',
+  }
+)
 
 const SessionStore = {
   set: (sessionId, session, callback) => {
@@ -49,31 +117,27 @@ const SessionStore = {
   },
 }
 
-module.exports = fp(
-  function (fastify, opts, done) {
-    fastify.register(require('fastify-cookie'))
+/**
+ * Create new session in DB and return this session id
+ *
+ * @param {String} userAgent
+ * @param {String} host
+ * @return {String}
+ */
+function createNewSession({ userAgent, host }) {
+  const sessionId = nanoid()
 
-    fastify.register(require('fastify-session'), {
-      cookieName: 'sessionId',
-      cookie: { secure: false },
-      secret: process.env.COOKIE_ENCRYPTION_PASSWORD_SECURE,
-      expires: 1800000,
+  const sessionDocument = new SessionModel({
+    sessionCookieId: sessionId,
+    isActive: true,
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
+    userAgent: userAgent,
+    host: host,
+  })
 
-      store: SessionStore,
+  sessionDocument.save()
 
-      /**
-       * Save sessions to the store, even when they are new and not modified.
-       * Defaults to true. Setting this to false can be useful to save storage space
-       * and to comply with the EU cookie law.
-       * @TODO: comply with the EU cookie law
-       */
-      saveUninitialized: true,
-    })
-
-    done()
-  },
-  {
-    fastify: '3.x',
-    name: 'mongodb-sessions',
-  }
-)
+  // Don't wait sessionDocument.save
+  return sessionId
+}
