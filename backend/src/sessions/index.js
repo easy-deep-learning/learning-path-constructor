@@ -70,53 +70,6 @@ module.exports = fp(
   }
 )
 
-const SessionStore = {
-  set: (sessionId, session, callback) => {
-    SessionModel.findOneAndUpdate(
-      {
-        sessionCookieId: sessionId,
-      },
-      {
-        updatedAt: Date.now(),
-      },
-      {
-        // Create a document if one isn't found. Required
-        // for `setDefaultsOnInsert`
-        upsert: true,
-        setDefaultsOnInsert: true,
-      }
-    )
-      .then(() => {
-        callback()
-      })
-      .catch()
-  },
-  get: (sessionId, callback) => {
-    console.log('get') // eslint-disable-line
-    console.log('sessionId: ', sessionId) // eslint-disable-line
-    SessionModel.findOne({
-      sessionCookieId: sessionId,
-    })
-      .then((session) => {
-        callback(null, session)
-      })
-      .catch((error) => {
-        callback(error)
-      })
-  },
-  destroy: (sessionId, callback) => {
-    SessionModel.deleteOne({
-      sessionCookieId: sessionId,
-    })
-      .then(() => {
-        callback()
-      })
-      .catch((error) => {
-        callback(error)
-      })
-  },
-}
-
 /**
  * Create new session in DB and return this session id
  *
