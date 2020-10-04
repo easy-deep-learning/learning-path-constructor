@@ -21,12 +21,6 @@ const UserSchema = new Schema({
   oauth: {
     facebookId: String,
   },
-  sessions: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Session',
-    },
-  ],
 })
 
 /**
