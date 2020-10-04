@@ -1,6 +1,7 @@
 const axios = require('axios').default
 const oauthPlugin = require('fastify-oauth2')
 
+const SessionModel = require('../../models/SessionModel')
 const UserModel = require('../../models/UserModel')
 
 module.exports = (fastify) => {
@@ -30,20 +31,51 @@ module.exports = (fastify) => {
         request
       )
 
-      // TODO: save user ID and email to session
-      axios({
+      const response = await axios({
         method: 'get',
         url: 'https://graph.facebook.com/v6.0/me',
         headers: {
           Authorization: 'Bearer ' + token.access_token,
         },
+      }).catch((error) => {
+        reply.send({ token, error })
       })
-        .then((response) => {
-          reply.send({ token, me: response.data })
-        })
-        .catch((error) => {
-          reply.send({ token, error })
-        })
+
+      const session = await SessionModel.findOne({
+        sessionCookieId: request.session.sessionCookieId,
+        isActive: true,
+      })
+
+      if (!session) {
+        reply.code(500).send()
+      }
+
+      let user = await UserModel.findOne({
+        'oauth.facebookId': response.data.id,
+      })
+
+      if (!user) {
+        user = await new UserModel({
+          displayName: response.data.name,
+          email: 'TODO: get from FB',
+          picture: 'TODO: get from FB',
+          oauth: {
+            facebookId: response.data.id,
+          },
+        }).save()
+      }
+
+      session.userId = user._id
+      session.isActive = true
+      session.save()
+
+      /**
+       * "me": {
+       *   "name": "Alex Baumgertner",
+       *   "id": "2902425913209697"
+       * }
+       */
+      reply.send({ token, me: user })
     },
   })
 }
