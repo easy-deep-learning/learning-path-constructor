@@ -19,7 +19,7 @@ module.exports = (fastify) => {
     // register a fastify url to start the redirect flow
     startRedirectPath: '/login/facebook',
     // facebook redirect here after the user login
-    callbackUri: 'http://localhost:3001/login/facebook/callback',
+    callbackUri: process.env.AUTH_STRATEGY_FACEBOOK_CLIENT_CALLBACK_URI,
   })
 
   fastify.route({
