@@ -41,41 +41,41 @@ module.exports = (fastify) => {
         reply.send({ token, error })
       })
 
-      const session = await SessionModel.findOne({
+      const sessionDocument = await SessionModel.findOne({
         sessionCookieId: request.session.sessionCookieId,
         isActive: true,
       })
 
-      if (!session) {
-        reply.code(500).send()
+      if (!sessionDocument) {
+        return reply.code(500).send({
+          error: 'session not found',
+        })
       }
 
-      let user = await UserModel.findOne({
+      let userDocument = await UserModel.findOne({
         'oauth.facebookId': response.data.id,
       })
 
-      if (!user) {
-        user = await new UserModel({
+      if (!userDocument) {
+        userDocument = await new UserModel({
           displayName: response.data.name,
           email: 'TODO: get from FB',
           picture: 'TODO: get from FB',
           oauth: {
             facebookId: response.data.id,
           },
-        }).save()
+          activeSessionsIds: [],
+        })
       }
 
-      session.userId = user._id
-      session.isActive = true
-      session.save()
+      userDocument.activeSessionsIds.push(sessionDocument._id)
 
-      /**
-       * "me": {
-       *   "name": "Alex Baumgertner",
-       *   "id": "2902425913209697"
-       * }
-       */
-      reply.send({ token, me: user })
+      sessionDocument.userId = userDocument._id
+      sessionDocument.isActive = true
+
+      await Promise.all([userDocument.save(), sessionDocument.save()])
+
+      reply.code(302).redirect(`/api/profile/${userDocument._id}`)
     },
   })
 }
