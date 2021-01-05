@@ -4,18 +4,18 @@ const SessionModel = require('../../models/SessionModel')
 module.exports = (fastify) => {
   fastify.route({
     method: 'GET',
-    path: '/api/profile/:id',
+    path: '/api/profile/:userId',
     preValidation: async (request, reply, done) => {
       console.log('request.session: ', request.session) // eslint-disable-line
-
-      const session = await SessionModel.findOne({
-        sessionCookieId: request.session.sessionCookieId,
+      const userDocument = await UserModel.findOne({
+        _id: request.params.userId,
       })
-      const user = await UserModel.findOne({ _id: session.userId })
-
-      if (!user || user._id !== request.session.userId) {
+      if (
+        !userDocument ||
+        !userDocument.activeSessionsIds.includes(request.session.id)
+      ) {
         reply.code(403).send({
-          message: 'You are not allowed to see profile',
+          message: 'You are not allowed to see this profile',
           redirectPath: '/',
         })
       } else {
@@ -25,7 +25,7 @@ module.exports = (fastify) => {
 
     handler: async (request) => {
       const params = request.params
-      const user = await UserModel.findOne({ _id: params.id })
+      const user = await UserModel.findOne({ _id: params.userId })
 
       return {
         dev: 'todo',

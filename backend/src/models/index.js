@@ -6,6 +6,14 @@ const { logger } = require('../logger')
  * @see https://mongoosejs.com/docs/index.html
  */
 const initMongo = async () => {
+  mongoose.set('debug', (collectionName, method, query, doc) => {
+    console.log(
+      `mongoose LOG: ${collectionName}.${method}`,
+      JSON.stringify(query),
+      doc
+    )
+  })
+
   const mongoUrl = await composeMongoUrl()
 
   // https://mongoosejs.com/docs/connections.html

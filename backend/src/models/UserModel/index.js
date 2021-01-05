@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 /**
- * https://mongoosejs.com/docs/schematypes.html#schematypes
+ * @see https://mongoosejs.com/docs/schematypes.html#schematypes
  */
 const UserSchema = new Schema({
   _id: {
@@ -21,10 +21,11 @@ const UserSchema = new Schema({
   oauth: {
     facebookId: String,
   },
+  activeSessionsIds: [String],
 })
 
 /**
- * https://mongoosejs.com/docs/models.html
+ * @see https://mongoosejs.com/docs/models.html
  */
 const UserModel = mongoose.model('User', UserSchema)
 

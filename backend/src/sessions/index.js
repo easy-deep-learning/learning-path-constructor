@@ -2,18 +2,18 @@ const { nanoid } = require('nanoid')
 const fp = require('fastify-plugin')
 const SessionModel = require('../models/SessionModel')
 
-const cookieName = process.env.COOKIE_SESSION_NAME
+const sessionCookieName = process.env.COOKIE_SESSION_NAME
 const cookieMaxAge = 7 * 24 * 60 * 60 * 1000 // one week
 
 module.exports = fp(
   function (fastify, opts, done) {
     fastify.register(require('fastify-cookie'))
 
-    fastify.addHook('onRequest', function decodeSession(request, reply, next) {
-      const cookie = request.cookies[cookieName]
+    fastify.addHook('onRequest', async function decodeSession(request) {
+      const cookie = request.cookies[sessionCookieName]
 
       if (!cookie) {
-        const sessionId = createNewSession({
+        const sessionId = await createNewSession({
           host: request.ip,
           userAgent: request.headers['user-agent'],
         })
@@ -21,17 +21,15 @@ module.exports = fp(
           sessionId,
           changed: true,
         }
-        next()
         return
       }
 
       if (cookie) {
-        SessionModel.findOne({
+        await SessionModel.findOne({
           sessionCookieId: cookie,
         }).then((session) => {
           if (session && session.isActive) {
             request.session = session
-            next()
           } else {
             const sessionId = createNewSession({
               host: request.ip,
@@ -41,7 +39,6 @@ module.exports = fp(
               sessionId,
               changed: true,
             }
-            next()
           }
         })
       }
@@ -51,14 +48,16 @@ module.exports = fp(
       const session = request.session
 
       if (session && session.changed) {
-        reply.setCookie(cookieName, session.sessionId, {
+        reply.clearCookie(sessionCookieName)
+
+        reply.setCookie(sessionCookieName, session.sessionId, {
           maxAge: cookieMaxAge,
+          path: '/',
         })
         next()
-        return
+      } else {
+        next()
       }
-
-      next()
     })
 
     // end plugin
@@ -75,9 +74,9 @@ module.exports = fp(
  *
  * @param {String} userAgent
  * @param {String} host
- * @return {String}
+ * @return {String} sessionId
  */
-function createNewSession({ userAgent, host }) {
+async function createNewSession({ userAgent, host }) {
   const sessionId = nanoid()
 
   const sessionDocument = new SessionModel({
@@ -89,7 +88,7 @@ function createNewSession({ userAgent, host }) {
     host: host,
   })
 
-  sessionDocument.save()
+  await sessionDocument.save()
 
   // Don't wait sessionDocument.save
   return sessionId
