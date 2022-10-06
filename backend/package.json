@@ -38,7 +38,7 @@
     "pino": "^6.9.0",
     "pino-gelf": "^2.0.0",
     "pino-pretty": "^4.3.0",
-    "snyk": "^1.437.3"
+    "snyk": "^1.996.0"
   },
   "devDependencies": {
     "eslint": "^7.0.0",
