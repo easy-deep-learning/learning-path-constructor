@@ -27,7 +27,7 @@
   "homepage": "https://github.com/easy-deep-learning/learning-path-constructor#readme",
   "dependencies": {
     "axios": "^0.21.1",
-    "fastify": "^3.9.2",
+    "fastify": "^3.29.4",
     "fastify-cookie": "^5.1.0",
     "fastify-oauth2": "^4.2.1",
     "fastify-plugin": "^3.0.0",
